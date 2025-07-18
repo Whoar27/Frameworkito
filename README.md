@@ -37,12 +37,14 @@ Ideal para aprender, prototipar, lanzar MVPs o como punto de partida profesional
 
 ## ¿Qué es Frameworkito?
 
-**Frameworkito** es un mini-framework PHP que sigue el patrón MVC (Modelo-Vista-Controlador). Incluye autenticación lista para usar, helpers, middlewares, sistema de rutas flexible, pruebas automatizadas y una estructura clara para que puedas enfocarte en tu lógica de negocio.
+**Frameworkito** es una base inicial (starter kit) para proyectos PHP que sigue el patrón MVC (Modelo-Vista-Controlador). Está diseñado para que puedas crear desde sitios web administrables (como blogs, portafolios o landings) hasta sistemas de gestión (inventarios, agendas, etc.), sin preocuparte por implementar desde cero la autenticación, recuperación de contraseñas, envío de correos y confirmación de cambios de contraseña.
+
+Incluye autenticación lista para usar, helpers, middlewares, sistema de rutas flexible, pruebas automatizadas y una estructura clara para que puedas enfocarte en la lógica específica de tu aplicación.
 
 - 100% PHP moderno (>=8.0)
 - Fácil de entender, modificar y extender
-- Pensado para proyectos pequeños, medianos, prototipos o aprendizaje
-- ¡Sin dependencias innecesarias ni magia oculta!
+- Ideal para proyectos pequeños, medianos, prototipos o aprendizaje
+- ¡Sin dependencias innecesarias
 
 ---
 
