@@ -1,0 +1,50 @@
+# Entorno y configuración sensible
+.env
+
+# Logs y reportes
+logs/
+*.log
+
+# Caché y sesiones
+storage/cache/
+storage/sessions/
+
+# Archivos subidos por usuarios
+public/uploads/
+
+# Backups de base de datos
+/database/backups/
+
+# Dependencias de Composer
+/vendor/
+
+# Dependencias de Node (si existieran)
+/node_modules/
+
+# Documentación
+/documentation/otros/
+/documentation/Resumenes/
+
+# Archivos temporales y de pruebas
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.orig
+
+# Archivos de PHPUnit y coverage
+.phpunit.result.cache
+coverage/
+
+# Archivos de IDEs
+.vscode/
+.idea/
+*.iml
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Otros archivos innecesarios
+leame.md

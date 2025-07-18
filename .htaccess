@@ -1,0 +1,24 @@
+# .htaccess en la raíz del proyecto
+# AuthManager Base - Redirección a /public/
+
+RewriteEngine On
+
+# Redireccionar todo el tráfico al directorio public
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L,R=301]
+
+# Bloquear acceso directo a archivos sensibles
+<FilesMatch "\.(env|config|log|sql|md)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Bloquear acceso a directorios del sistema
+RedirectMatch 403 ^/(app|database|logs|tests|vendor)/.*$
+
+# Headers de seguridad básicos
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
