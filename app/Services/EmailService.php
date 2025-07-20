@@ -37,7 +37,7 @@ class EmailService {
     /**
      * Envía un correo de confirmación de cambio de contraseña
      */
-    public function sendPasswordChanged($toEmail, $toName, $companyName = 'AuthManager Base') {
+    public function sendPasswordChanged($toEmail, $toName, $companyName = 'Frameworkito') {
         $fromName = "[Seguridad] Confirmación cambio de contraseña";
         $subject = 'Tu contraseña ha sido cambiada';
         $templatePath = __DIR__ . '/../Views/templates/email/password-changed.html';

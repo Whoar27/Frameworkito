@@ -2,7 +2,7 @@
 
 /**
  * MaintenanceMiddleware - Middleware de Mantenimiento
- * AuthManager Base
+ * Frameworkito
  * 
  * Verifica si el sitio está en modo mantenimiento y muestra
  * la página correspondiente a los usuarios no autorizados.
@@ -188,7 +188,7 @@ class MaintenanceMiddleware {
         header('Retry-After: 3600'); // 1 hora
 
         // Datos para la vista
-        $app_name = $this->config['app']['name'] ?? $_ENV['APP_NAME'] ?? 'AuthManager Base';
+        $app_name = $this->config['app']['name'] ?? $_ENV['APP_NAME'] ?? 'Frameworkito';
 
         // Verificar si existe la vista de mantenimiento personalizada
         $maintenanceView = APP_PATH . '/Views/maintenance/index.php';
