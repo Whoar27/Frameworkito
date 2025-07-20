@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitio en Mantenimiento | <?= htmlspecialchars($app_name ?? 'AuthManager Base') ?></title>
+    <title>Sitio en Mantenimiento | <?= htmlspecialchars($app_name ?? 'Frameworkito') ?></title>
     <meta name="robots" content="noindex, nofollow">
     <meta name="description" content="El sitio está temporalmente en mantenimiento. Volveremos pronto con mejoras.">
 

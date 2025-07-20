@@ -101,7 +101,7 @@
                         <i class="fas fa-user-plus"></i>
                     </div>
                     <h1 class="auth-title">Crear Cuenta</h1>
-                    <p class="auth-subtitle">Únete a <?= e($app_name ?? 'AuthManager Base') ?></p>
+                    <p class="auth-subtitle">Únete a <?= e($app_name ?? 'Frameworkito') ?></p>
                 </div>
 
                 <!-- Mensajes Flash -->

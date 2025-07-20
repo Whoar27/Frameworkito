@@ -87,7 +87,7 @@
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h1 class="auth-title">Iniciar Sesión</h1>
-                    <p class="auth-subtitle">Accede a tu cuenta en <?= e($app_name ?? 'AuthManager Base') ?></p>
+                    <p class="auth-subtitle">Accede a tu cuenta en <?= e($app_name ?? 'Frameworkito') ?></p>
                 </div>
 
                 <!-- Mensajes Flash -->

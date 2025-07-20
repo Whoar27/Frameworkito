@@ -122,7 +122,7 @@
                 if (!empty($_SESSION['_flash']['email_error'])) {
                     echo '<div class="alert alert-danger">' . htmlspecialchars($_SESSION['_flash']['email_error']) . '</div>';
                     // Borra el mensaje si quieres comportamiento flash real:
-                    // unset($_SESSION['_flash']['email_error']);
+                    unset($_SESSION['_flash']['email_error']);
                 }
                 ?>
 
@@ -139,7 +139,7 @@
                             <div class="step-content">
                                 <h6>Revisa tu email</h6>
                                 <p class="small text-muted mb-0">
-                                    Busca un email de <strong><?= e($app_name ?? 'AuthManager Base') ?></strong>
+                                    Busca un email de <strong><?= e($app_name ?? 'Frameworkito') ?></strong>
                                     en tu bandeja de entrada.
                                 </p>
                             </div>
