@@ -1,5 +1,5 @@
 # .htaccess en la raíz del proyecto
-# AuthManager Base - Redirección a /public/
+# Frameworkito - Redirección a /public/
 
 RewriteEngine On
 

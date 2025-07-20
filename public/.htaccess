@@ -1,5 +1,5 @@
 # public/.htaccess
-# AuthManager Base - Manejo de URLs amigables
+# Frameworkito - Manejo de URLs amigables
 
 RewriteEngine On
 
