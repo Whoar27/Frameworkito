@@ -1,5 +1,5 @@
 {
-    "name": "authmanager/base",
+    "name": "Frameworkito",
     "description": "Sistema de autenticación reutilizable con PHP Vanilla, Bootstrap 5 y patrón MVC",
     "type": "library",
     "keywords": [

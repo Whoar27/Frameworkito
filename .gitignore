@@ -22,8 +22,7 @@ public/uploads/
 /node_modules/
 
 # Documentación
-/documentation/otros/
-/documentation/Resumenes/
+/documentation
 
 # Archivos temporales y de pruebas
 *.tmp
