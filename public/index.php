@@ -2,7 +2,7 @@
 
 /**
  * Punto de Entrada Principal
- * AuthManager Base
+ * Frameworkito
  * 
  * Este archivo actúa como bootstrap de la aplicación:
  * 1. Configura el entorno
@@ -10,6 +10,8 @@
  * 3. Inicializa la aplicación
  * 4. Maneja errores globales con display elegante
  */
+
+use Dotenv\Dotenv;
 
 // Definir constantes de tiempo
 define('APP_START_TIME', microtime(true));
@@ -48,23 +50,19 @@ function ensureDirectories() {
  * Autoloader manual PSR-4 para cuando no hay Composer
  */
 function manualAutoloader($className) {
-    // Solo manejar clases del namespace App\
     if (strpos($className, 'App\\') !== 0) {
         return false;
     }
 
-    // Convertir namespace a ruta de archivo
     $classPath = str_replace('App\\', '', $className);
     $classPath = str_replace('\\', '/', $classPath);
     $filePath = APP_PATH . '/' . $classPath . '.php';
 
-    // Intentar cargar el archivo
     if (file_exists($filePath)) {
         require_once $filePath;
         return true;
     }
 
-    // Mapeo específico para casos especiales (si es necesario)
     $classMap = [
         'App\Core\Bootstrap' => APP_PATH . '/Core/Bootstrap.php',
         'App\Core\App' => APP_PATH . '/Core/App.php',
@@ -114,7 +112,6 @@ function manualAutoloader($className) {
 function displayError($e, $isDebug = false) {
     http_response_code(500);
 
-    // Información adicional para debug
     $debugInfo = [
         'file' => $e->getFile(),
         'line' => $e->getLine(),
@@ -127,7 +124,6 @@ function displayError($e, $isDebug = false) {
         'php_version' => PHP_VERSION
     ];
 
-    // Mostrar error en pantalla
     require_once APP_PATH . '/Views/errors/error-index.php';
 }
 
@@ -165,12 +161,10 @@ function getSuggestions($errorMessage) {
 }
 
 try {
-    // Verificar que PHP tiene la versión mínima requerida
     if (version_compare(PHP_VERSION, '8.0.0', '<')) {
-        throw new \Exception('AuthManager Base requiere PHP 8.0 o superior. Versión actual: ' . PHP_VERSION);
+        throw new \Exception('Frameworkito requiere PHP 8.0 o superior. Versión actual: ' . PHP_VERSION);
     }
 
-    // Verificar que las extensiones requeridas están disponibles
     $requiredExtensions = ['pdo', 'mbstring', 'openssl', 'json'];
     foreach ($requiredExtensions as $extension) {
         if (!extension_loaded($extension)) {
@@ -178,31 +172,29 @@ try {
         }
     }
 
-    // Crear directorios necesarios
     ensureDirectories();
 
-    // Configurar zona horaria por defecto
     date_default_timezone_set('America/Bogota');
 
-    // Configurar manejo de errores durante el bootstrap
     error_reporting(E_ALL);
-    ini_set('display_errors', '0'); // Lo manejamos nosotros
+    ini_set('display_errors', '0');
     ini_set('log_errors', '1');
     ini_set('error_log', LOGS_PATH . '/php_errors.log');
 
-    // Intentar cargar autoloader de Composer, si no está disponible usar manual
     $autoloaderPath = ROOT_PATH . '/vendor/autoload.php';
     $usingComposer = false;
 
     if (file_exists($autoloaderPath)) {
         require_once $autoloaderPath;
         $usingComposer = true;
+
+        // ✅ Cargar variables de entorno
+        $dotenv = Dotenv::createImmutable(ROOT_PATH);
+        $dotenv->safeLoad();
     } else {
-        // Registrar autoloader manual
         spl_autoload_register('manualAutoloader');
     }
 
-    // Cargar funciones helper globales
     $helpersPath = APP_PATH . '/Helpers/Functions.php';
     if (file_exists($helpersPath)) {
         require_once $helpersPath;
@@ -210,16 +202,13 @@ try {
         throw new \Exception("Archivo de funciones helper no encontrado: {$helpersPath}");
     }
 
-    // Verificar configuración básica
     if (!file_exists(CONFIG_PATH . '/app.php')) {
         throw new \Exception("Archivo de configuración principal no encontrado: " . CONFIG_PATH . '/app.php');
     }
 
-    // Inicializar la aplicación usando namespaces
     $bootstrap = new \App\Core\Bootstrap();
     $app = $bootstrap->createApplication();
 
-    // Log de inicio exitoso
     if (function_exists('file_log')) {
         file_log('info', 'Aplicación iniciada correctamente', [
             'using_composer' => $usingComposer,
@@ -228,13 +217,10 @@ try {
         ]);
     }
 
-    // Iniciar la aplicación y manejar la request
     $app->run();
 } catch (\Exception $e) {
-    // Determinar si mostrar debug
     $isDebug = false;
 
-    // Intentar leer configuración de debug
     if (file_exists(ROOT_PATH . '/.env')) {
         $envContent = file_get_contents(ROOT_PATH . '/.env');
         if (preg_match('/APP_DEBUG\s*=\s*true/i', $envContent)) {
@@ -242,33 +228,27 @@ try {
         }
     }
 
-    // También verificar variable de entorno directa
     if (isset($_ENV['APP_DEBUG']) && $_ENV['APP_DEBUG'] === 'true') {
         $isDebug = true;
     }
 
-    // Intentar hacer log del error si es posible
     $errorMessage = date('Y-m-d H:i:s') . " [CRITICAL] Bootstrap Error: " . $e->getMessage() . "\n";
     $errorMessage .= "Stack trace: " . $e->getTraceAsString() . "\n";
     $errorMessage .= "Request URI: " . ($_SERVER['REQUEST_URI'] ?? 'Unknown') . "\n";
     $errorMessage .= "User Agent: " . ($_SERVER['HTTP_USER_AGENT'] ?? 'Unknown') . "\n\n";
 
-    // Intentar escribir al log de errores
     if (is_dir(LOGS_PATH) && is_writable(LOGS_PATH)) {
         file_put_contents(LOGS_PATH . '/bootstrap_errors.log', $errorMessage, FILE_APPEND | LOCK_EX);
     }
 
-    // Mostrar error elegante
     displayError($e, $isDebug);
     exit(1);
 }
 
-// Registrar tiempo de ejecución al final del request
 register_shutdown_function(function () {
     $executionTime = microtime(true) - APP_START_TIME;
     $memoryUsage = memory_get_peak_usage() - APP_START_MEMORY;
 
-    // Log de performance si está habilitado
     if (
         function_exists('file_log') &&
         isset($_ENV['APP_DEBUG']) &&
