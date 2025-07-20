@@ -1,5 +1,5 @@
 -- =====================================================
--- MIGRACIÓN 007: TABLA USERS_ROLES (AuthManager Base)
+-- MIGRACIÓN 007: TABLA USERS_ROLES (Frameworkito)
 -- Archivo: database/migrations/007_create_users_roles_table.sql
 -- Descripción: Relación muchos a muchos entre usuarios y roles
 -- Dependencias: 001_create_users_table.sql, 006_create_roles_table.sql

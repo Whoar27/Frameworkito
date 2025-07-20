@@ -1,5 +1,5 @@
 -- =====================================================
--- MIGRACIÓN 006: TABLA ROLES (AuthManager Base)
+-- MIGRACIÓN 006: TABLA ROLES (Frameworkito)
 -- Archivo: database/migrations/006_create_roles_table.sql
 -- Descripción: Sistema de roles y permisos
 -- Dependencias: Ninguna (independiente)

@@ -1,5 +1,5 @@
 -- =====================================================
--- MIGRACIÓN 009: TABLA SYSTEM_SETTINGS (AuthManager Base)
+-- MIGRACIÓN 009: TABLA SYSTEM_SETTINGS (Frameworkito)
 -- Archivo: database/migrations/009_create_system_settings_table.sql
 -- Descripción: Configuraciones dinámicas del sistema
 -- Dependencias: Ninguna (independiente)
@@ -34,7 +34,7 @@ CREATE TABLE `system_settings` (
 INSERT INTO `system_settings` (`key`, `value`, `type`, `description`, `group`, `is_public`) VALUES
 
 -- CONFIGURACIONES GENERALES
-('app_name', 'AuthManager Base', 'string', 'Nombre de la aplicación', 'general', 1),
+('app_name', 'Frameworkito', 'string', 'Nombre de la aplicación', 'general', 1),
 ('app_version', '1.0.0', 'string', 'Versión actual del sistema', 'general', 1),
 ('app_description', 'Sistema de autenticación profesional con PHP', 'string', 'Descripción de la aplicación', 'general', 1),
 ('app_timezone', 'America/Bogota', 'string', 'Zona horaria del sistema', 'general', 0),
@@ -66,7 +66,7 @@ INSERT INTO `system_settings` (`key`, `value`, `type`, `description`, `group`, `
 
 -- CONFIGURACIONES DE EMAIL
 ('email_from_address', 'noreply@authmanager.com', 'string', 'Email remitente por defecto', 'email', 0),
-('email_from_name', 'AuthManager Base', 'string', 'Nombre remitente por defecto', 'email', 0),
+('email_from_name', 'Frameworkito', 'string', 'Nombre remitente por defecto', 'email', 0),
 ('email_verification_expiry', '24', 'integer', 'Expiración link verificación en horas', 'email', 0),
 ('password_reset_expiry', '1', 'integer', 'Expiración link reset en horas', 'email', 0),
 
@@ -89,7 +89,7 @@ INSERT INTO `system_settings` (`key`, `value`, `type`, `description`, `group`, `
 -- CONFIGURACIONES SOCIALES
 ('contact_email', 'contact@authmanager.com', 'string', 'Email de contacto público', 'contact', 1),
 ('support_email', 'support@authmanager.com', 'string', 'Email de soporte técnico', 'contact', 1),
-('company_name', 'AuthManager Team', 'string', 'Nombre de la empresa', 'contact', 1),
+('company_name', 'Frameworkito Team', 'string', 'Nombre de la empresa', 'contact', 1),
 ('company_address', '', 'text', 'Dirección de la empresa', 'contact', 1);
 
 -- =====================================================

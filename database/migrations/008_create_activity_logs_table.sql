@@ -1,5 +1,5 @@
 -- =====================================================
--- MIGRACIÓN 008: TABLA ACTIVITY_LOGS (AuthManager Base)
+-- MIGRACIÓN 008: TABLA ACTIVITY_LOGS (Frameworkito)
 -- Archivo: database/migrations/008_create_activity_logs_table.sql
 -- Descripción: Logs de actividad del sistema para auditoría
 -- Dependencias: 001_create_users_table.sql
