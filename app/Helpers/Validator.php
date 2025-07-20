@@ -1,7 +1,7 @@
 <?php
 /**
  * Validator - Validador de Datos
- * AuthManager Base
+ * Frameworkito
  * 
  * Sistema de validación flexible con:
  * - Reglas predefinidas

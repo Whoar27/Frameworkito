@@ -2,7 +2,7 @@
 
 /**
  * Router - Sistema de Ruteo
- * AuthManager Base
+ * Frameworkito
  * 
  * Maneja:
  * 1. Registro y resolución de rutas

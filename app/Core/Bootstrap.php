@@ -2,7 +2,7 @@
 
 /**
  * Bootstrap - Inicializador de la Aplicación
- * AuthManager Base
+ * Frameworkito
  * 
  * Se encarga de:
  * 1. Cargar configuraciones

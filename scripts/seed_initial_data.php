@@ -9,7 +9,7 @@ $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
 /**
- * Seeder de Datos Iniciales - AuthManager Base
+ * Seeder de Datos Iniciales - Frameworkito
  * 
  * Crea datos básicos necesarios para el funcionamiento del sistema
  * 
@@ -309,7 +309,7 @@ class InitialDataSeeder {
                 'user_id' => null,
                 'type' => 'system',
                 'action' => 'system_initialized',
-                'message' => 'Sistema AuthManager Base inicializado correctamente',
+                'message' => 'Sistema Frameworkito inicializado correctamente',
                 'context' => json_encode([
                     'version' => '1.0.0',
                     'initialized_at' => date('Y-m-d H:i:s'),
@@ -359,7 +359,7 @@ class InitialDataSeeder {
                 $message,
                 json_encode($context),
                 '127.0.0.1', // IP del seeder
-                'AuthManager Seeder v1.0' // User agent del seeder
+                'Frameworkito Seeder v1.0' // User agent del seeder
             ]);
         } catch (Exception $e) {
             // Silenciar errores de logging para no interrumpir el seeding

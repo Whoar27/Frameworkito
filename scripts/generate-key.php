@@ -8,7 +8,7 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 /**
- * Generador de APP_KEY para AuthManager Base
+ * Generador de APP_KEY para Frameworkito
  * 
  * Este script genera una clave segura de 32 caracteres
  * y la aplica automáticamente al archivo .env
@@ -17,7 +17,7 @@ $dotenv->load();
  */
 
 echo "\n===============================================\n";
-echo "    GENERADOR DE APP_KEY - AuthManager Base\n";
+echo "    GENERADOR DE APP_KEY - Frameworkito\n";
 echo "===============================================\n\n";
 
 // Definir rutas necesarias para helpers y compatibilidad

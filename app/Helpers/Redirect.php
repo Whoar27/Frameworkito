@@ -1,7 +1,7 @@
 <?php
 /**
  * Redirect - Helper de Redirecciones
- * AuthManager Base
+ * Frameworkito
  * 
  * Maneja redirecciones con:
  * - URLs internas y externas

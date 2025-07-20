@@ -1,7 +1,7 @@
 <?php
 /**
  * Utils - Utilidades Generales
- * AuthManager Base
+ * Frameworkito
  * 
  * Colección de funciones útiles para:
  * - Manipulación de strings

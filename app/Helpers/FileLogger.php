@@ -1,7 +1,7 @@
 <?php
 /**
  * FileLogger - Clase para Logging en Archivos
- * AuthManager Base
+ * Frameworkito
  * 
  * Maneja el logging avanzado en archivos con:
  * - Rotación automática

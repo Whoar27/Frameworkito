@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Script de Migraciones - AuthManager Base
+ * Script de Migraciones - Frameworkito
  * 
  * Ejecuta migraciones de base de datos de forma automatizada
  * 

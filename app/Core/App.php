@@ -2,7 +2,7 @@
 
 /**
  * App - Clase Principal de la Aplicación
- * AuthManager Base
+ * Frameworkito
  * 
  * Maneja:
  * 1. Inicialización final de la aplicación

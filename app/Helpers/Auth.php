@@ -2,7 +2,7 @@
 
 /**
  * Auth - Helper de Autenticación
- * AuthManager Base
+ * Frameworkito
  * 
  * Wrapper para Delight-im/Auth que proporciona:
  * - Interfaz simplificada

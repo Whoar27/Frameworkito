@@ -2,7 +2,7 @@
 
 /**
  * Funciones Globales del Sistema
- * AuthManager Base
+ * Frameworkito
  * 
  * Funciones helper disponibles globalmente en toda la aplicación
  * VERSIÓN SEGURA SIN ACCESO A $_SESSION EN LOGGING
@@ -181,9 +181,6 @@ function bd_log(string $type, string $message, array $context = [], ?int $userId
                 return; // No hay conexión disponible
             }
         }
-
-        // ELIMINADO: No detectamos automáticamente user_id desde $_SESSION
-        // Solo usamos el userId que se proporciona explícitamente
 
         // Determinar acción específica del contexto o usar genérica
         $action = $context['action'] ?? 'general';
@@ -570,12 +567,27 @@ function env(string $key, $default = null) {
 
 /**
  * Genera la URL absoluta para un recurso público (assets).
+ * Solo aplica versión a archivos modificables propios (CSS y JS), no a vendors ni imágenes.
  */
 function asset(string $path): string {
-    $appUrl = rtrim(env('APP_URL', ''), '/');
-    
-    if (!$appUrl) {
-        return '/' . ltrim($path, '/');
+    // Si es una URL externa, devolver tal cual
+    if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+        return $path;
     }
-    return $appUrl . '/' . ltrim($path, '/');
+
+    $path = ltrim($path, '/');
+    $appUrl = rtrim(env('APP_URL', ''), '/');
+    $url = $appUrl . '/' . $path;
+
+    // Aplicar versión solo si es CSS o JS propio, no en vendors u otros
+    if (
+        (str_starts_with($path, 'assets/css/') || str_starts_with($path, 'assets/js/')) &&
+        !str_starts_with($path, 'assets/vendors/')
+    ) {
+        $version = config('app.version', '1.0.0');
+        $url .= '?v=' . $version;
+    }
+
+    return $url;
 }
+

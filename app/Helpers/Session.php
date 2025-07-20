@@ -1,7 +1,7 @@
 <?php
 /**
  * Session - Helper de Manejo de Sesiones
- * AuthManager Base
+ * Frameworkito
  * 
  * Maneja:
  * - Operaciones seguras de sesión

@@ -1,7 +1,7 @@
 <?php
 /**
  * DatabaseLogger - Clase para Logging en Base de Datos
- * AuthManager Base
+ * Frameworkito
  * 
  * Maneja el logging en base de datos con:
  * - Logging de actividades de usuario
