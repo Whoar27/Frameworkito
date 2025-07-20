@@ -4,14 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Página No Encontrada | <?= htmlspecialchars($app_name ?? 'AuthManager Base') ?></title>
+    <title><?= htmlspecialchars($status_code ?? 404) ?> - <?= htmlspecialchars($title ?? 'Página No Encontrada') ?> | <?= htmlspecialchars($app_name ?? 'Frameworkito') ?></title>
     <meta name="robots" content="noindex, nofollow">
 
-    <!-- Bootstrap 5 CSS -->
+    <link rel="icon" type="image/x-icon" href="<?= asset('assets/img/favicon.ico') ?>">
     <link href="<?= asset('assets/vendors/bootstrap/5.3.7/css/bootstrap.min.css') ?>" rel="stylesheet">
-    <!-- Font Awesome -->
     <link href="<?= asset('assets/vendors/font-awesome/6.7.2/css/all.css') ?>" rel="stylesheet">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -57,6 +55,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            animation: slideUp 0.5s ease-out;
         }
 
         .error-card::before {
@@ -168,7 +167,6 @@
 
         .btn-primary:hover {
             background: var(--primary-light);
-            color: white;
             transform: translateY(-1px);
         }
 
@@ -182,25 +180,6 @@
             border-color: var(--primary);
             color: var(--primary);
             transform: translateY(-1px);
-        }
-
-        .back-link {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            padding: 0.5rem;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            z-index: 10;
-        }
-
-        .back-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .footer-info {
@@ -219,11 +198,6 @@
             text-decoration: underline;
         }
 
-        /* Animación suave */
-        .error-card {
-            animation: slideUp 0.5s ease-out;
-        }
-
         @keyframes slideUp {
             from {
                 opacity: 0;
@@ -236,7 +210,6 @@
             }
         }
 
-        /* Responsive Design */
         @media (min-width: 576px) {
             body {
                 padding: 2rem;
@@ -285,12 +258,6 @@
             .error-title {
                 font-size: 2.25rem;
             }
-
-            .back-link {
-                top: 2rem;
-                left: 2rem;
-                font-size: 1rem;
-            }
         }
 
         @media (min-width: 992px) {
@@ -306,116 +273,37 @@
                 font-size: 1.2rem;
             }
         }
-
-        /* Estados de enfoque para accesibilidad */
-        .btn:focus,
-        .back-link:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        /* Reducir movimiento para usuarios que lo prefieren */
-        @media (prefers-reduced-motion: reduce) {
-            .error-card {
-                animation: none;
-            }
-
-            .btn:hover,
-            .btn-outline:hover,
-            .back-link:hover {
-                transform: none;
-            }
-        }
     </style>
 </head>
 
 <body>
-
-    <!-- Error Container -->
     <div class="error-container">
         <div class="error-card">
-            <!-- Error Icon -->
             <div class="error-icon">
                 <i class="fas fa-search"></i>
             </div>
-
-            <!-- Error Number -->
-            <div class="error-number">404</div>
-
-            <!-- Error Title -->
-            <h1 class="error-title">Página No Encontrada</h1>
-
-            <!-- Error Description -->
+            <div class="error-number"><?= htmlspecialchars($status_code ?? '404') ?></div>
+            <h1 class="error-title"><?= htmlspecialchars($title ?? 'Página No Encontrada') ?></h1>
             <p class="error-description">
-                Lo sentimos, la página que buscas no existe o ha sido movida.
-                Verifica la URL o usa una de las opciones a continuación.
+                <?= $message ?? 'Lo sentimos, la página que buscas no existe o ha sido movida. Verifica la URL o usa una de las opciones a continuación.' ?>
             </p>
-
-            <!-- Suggestions -->
             <div class="suggestions">
                 <h6>¿Qué puedes hacer?</h6>
-                <div class="suggestion-item">
-                    <i class="fas fa-home"></i>
-                    <span>Ir a la página de inicio</span>
-                </div>
-                <div class="suggestion-item">
-                    <i class="fas fa-search"></i>
-                    <span>Buscar el contenido que necesitas</span>
-                </div>
-                <div class="suggestion-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>Contactar soporte si necesitas ayuda</span>
-                </div>
-                <div class="suggestion-item">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Regresar a la página anterior</span>
-                </div>
+                <div class="suggestion-item"><i class="fas fa-home"></i><span>Ir a la página de inicio</span></div>
+                <div class="suggestion-item"><i class="fas fa-search"></i><span>Buscar el contenido que necesitas</span></div>
+                <div class="suggestion-item"><i class="fas fa-envelope"></i><span>Contactar soporte si necesitas ayuda</span></div>
+                <div class="suggestion-item"><i class="fas fa-arrow-left"></i><span>Regresar a la página anterior</span></div>
             </div>
-
-            <!-- Action Buttons -->
             <div class="buttons">
-                <a href="/" class="btn btn-primary">
-                    <i class="fas fa-home"></i>
-                    Ir al Inicio
-                </a>
-                <a href="javascript:history.back()" class="btn btn-outline">
-                    <i class="fas fa-arrow-left"></i>
-                    Página Anterior
-                </a>
+                <a href="/" class="btn btn-primary"><i class="fas fa-home"></i>Ir al Inicio</a>
+                <a href="javascript:history.back()" class="btn btn-outline"><i class="fas fa-arrow-left"></i>Página Anterior</a>
             </div>
-
-            <!-- Footer Info -->
             <div class="footer-info">
                 <i class="fas fa-info-circle me-1"></i>
-                Si crees que esto es un error,
-                <a href="/contact">contáctanos</a>
+                Si crees que esto es un error, <a href="/contact">contáctanos</a>
             </div>
         </div>
     </div>
-
-    <!-- JavaScript -->
-    <script>
-        // Log 404 para analytics
-        if (typeof console !== 'undefined') {
-            console.log('404 Error:', {
-                page: window.location.pathname,
-                referrer: document.referrer || 'direct',
-                timestamp: new Date().toISOString()
-            });
-        }
-
-        // Mejorar accesibilidad con teclado
-        document.addEventListener('keydown', function(e) {
-            // Escape para volver atrás
-            if (e.key === 'Escape') {
-                history.back();
-            }
-            // Enter en home para ir al inicio
-            if (e.key === 'Enter' && e.target.classList.contains('btn-primary')) {
-                window.location.href = '/';
-            }
-        });
-    </script>
 </body>
 
 </html>

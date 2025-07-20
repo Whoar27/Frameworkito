@@ -2,7 +2,7 @@
 
 /**
  * BaseController - Controlador Base
- * AuthManager Base
+ * Frameworkito
  * 
  * Funcionalidad común para todos los controladores
  */
@@ -53,8 +53,9 @@ class BaseController {
         extract($data);
 
         // Datos globales disponibles en todas las vistas
-        $app_name = $this->config['app']['name'] ?? 'AuthManager Baseuuuuu';
+        $app_name = $this->config['app']['name'] ?? 'Frameworkitouuuuu';
         $app_debug = $this->config['app']['debug'] ?? false;
+        $currentPage = $data['currentPage'] ?? '';
 
         // Construir rutas de archivos
         $viewFile = APP_PATH . "/Views/{$view}.php";
@@ -103,30 +104,38 @@ class BaseController {
     /**
      * Mostrar página de error 404 usando el sistema de vistas
      */
-    private function show404(): void {
-        // Establecer código de respuesta HTTP 404
-        http_response_code(404);
+    protected function show404(array $data = []): void{
+        // Código de estado HTTP
+        http_response_code($data['status_code'] ?? 404);
 
-        // Datos para la página 404
-        $app_name = $this->config['app']['name'] ?? 'AuthManager Base';
-        $requested_url = $_SERVER['REQUEST_URI'] ?? '/';
-        $referer = $_SERVER['HTTP_REFERER'] ?? null;
+        // Valores por defecto
+        $defaults = [
+            'status_code' => 404,
+            'title' => 'Página No Encontrada',
+            'message' => 'Lo sentimos, la página que buscas no existe o ha sido movida.',
+            'app_name' => $this->config['app']['name'] ?? 'Frameworkito',
+            'requested_url' => $_SERVER['REQUEST_URI'] ?? '/',
+            'referer' => $_SERVER['HTTP_REFERER'] ?? null,
+        ];
 
-        // Ruta del archivo 404
+        // Combinar valores recibidos con los por defecto
+        $vars = array_merge($defaults, $data);
+
+        // Hacer accesibles como variables
+        extract($vars);
+
+        // Ruta de la vista
         $error404File = APP_PATH . '/Views/errors/404.php';
 
-        // Verificar si existe el archivo 404 personalizado
+        // Mostrar la vista
         if (file_exists($error404File)) {
-            // Usar la vista 404 (sin layout ya que es standalone)
             include $error404File;
         } else {
-            // Fallback: mensaje básico
-            echo "<h1>404 - Página No Encontrada</h1>";
-            echo "<p>La página solicitada no existe.</p>";
+            echo "<h1>{$title}</h1>";
+            echo "<p>{$message}</p>";
             echo "<a href='/'>Volver al Inicio</a>";
         }
 
-        // Terminar ejecución
         exit();
     }
 

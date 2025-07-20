@@ -4,14 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>500 - Error del Servidor | <?= htmlspecialchars($app_name ?? 'AuthManager Base') ?></title>
+    <title>500 - Error del Servidor | <?= htmlspecialchars($app_name ?? 'Frameworkito') ?></title>
     <meta name="robots" content="noindex, nofollow">
 
-    <!-- Bootstrap 5 CSS -->
+    <link rel="icon" type="image/x-icon" href="<?= asset('assets/img/favicon.ico') ?>">
     <link href="<?= asset('assets/vendors/bootstrap/5.3.7/css/bootstrap.min.css') ?>" rel="stylesheet">
-    <!-- Font Awesome -->
     <link href="<?= asset('assets/vendors/font-awesome/6.7.2/css/all.css') ?>" rel="stylesheet">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>

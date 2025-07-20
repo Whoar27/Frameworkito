@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error de Debug - AuthManager Base</title>
+    <title>Error de Debug - Frameworkito</title>
 
-    <!-- Bootstrap 5 CSS -->
+    <link rel="icon" type="image/x-icon" href="<?= asset('assets/img/favicon.ico') ?>">
     <link href="<?= asset('assets/vendors/bootstrap/5.3.7/css/bootstrap.min.css') ?>" rel="stylesheet">
-    <!-- Font Awesome -->
     <link href="<?= asset('assets/vendors/font-awesome/6.7.2/css/all.css') ?>" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
