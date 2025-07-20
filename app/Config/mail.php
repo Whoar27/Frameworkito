@@ -1,7 +1,7 @@
 <?php
 /**
  * Configuración de Email
- * AuthManager Base - Usando PHPMailer
+ * Frameworkito - Usando PHPMailer
  */
 
 return [
@@ -316,7 +316,7 @@ return [
 
         // Headers de seguridad adicionales
         'security_headers' => [
-            'X-Mailer' => 'AuthManager Base Mailer',
+            'X-Mailer' => 'Frameworkito Mailer',
             'X-Priority' => '3',
         ],
     ],

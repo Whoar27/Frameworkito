@@ -1,7 +1,7 @@
 <?php
 /**
  * Configuración de Autenticación
- * AuthManager Base - Usando Delight-im/Auth
+ * Frameworkito - Usando Delight-im/Auth
  */
 
 return [
@@ -234,7 +234,7 @@ return [
         'default_method' => 'totp',
 
         // Nombre de la aplicación para TOTP
-        'totp_issuer' => $_ENV['APP_NAME'] ?? 'AuthManager Base',
+        'totp_issuer' => $_ENV['APP_NAME'] ?? 'Frameworkito',
 
         // Longitud del código de verificación
         'code_length' => 6,

@@ -2,25 +2,8 @@
 
 /**
  * Configuración General de la Aplicación
- * AuthManager Base
+ * Frameworkito
  */
-
-// Cargar variables de entorno
-if (file_exists(__DIR__ . '/../../.env')) {
-    $lines = file(__DIR__ . '/../../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        if (strpos(trim($line), '#') === 0) continue; // Saltar comentarios
-        if (strpos($line, '=') !== false) {
-            list($name, $value) = explode('=', $line, 2);
-            $name = trim($name);
-            $value = trim($value);
-            if (!array_key_exists($name, $_ENV)) {
-                $_ENV[$name] = $value;
-                putenv("{$name}={$value}");
-            }
-        }
-    }
-}
 
 return [
     /*
@@ -30,28 +13,31 @@ return [
     */
 
     // Nombre de la aplicación
-    'name' => $_ENV['APP_NAME'],
+    'name' => env('APP_NAME'),
 
     // Entorno de la aplicación (development, production, testing)
-    'env' => $_ENV['APP_ENV'],
+    'env' => env('APP_ENV'),
 
     // Modo debug (mostrar errores detallados)
-    'debug' => filter_var($_ENV['APP_DEBUG'] ?? true, FILTER_VALIDATE_BOOLEAN),
+    'debug' => filter_var(env('APP_DEBUG', true), FILTER_VALIDATE_BOOLEAN),
 
     // Modo mantenimiento (mostrar página de mantenimiento)
-    'maintenance_mode' => filter_var($_ENV['APP_MAINTENANCE'] ?? false, FILTER_VALIDATE_BOOLEAN),
+    'maintenance_mode' => filter_var(env('APP_MAINTENANCE', false), FILTER_VALIDATE_BOOLEAN),
 
     // URL base de la aplicación
-    'url' => $_ENV['APP_URL'],
+    'url' => env('APP_URL'),
 
     // Clave secreta de la aplicación (32 caracteres)
-    'key' => $_ENV['APP_KEY'],
+    'key' => env('APP_KEY'),
 
     // Zona horaria de la aplicación
-    'timezone' => $_ENV['APP_TIMEZONE'],
+    'timezone' => env('APP_TIMEZONE'),
 
     // Tipo de aplicación (website o system)
-    'app_type' => $_ENV['APP_TYPE'],
+    'app_type' => env('APP_TYPE'),
+
+    // Versión de la aplicación
+    'version' => env('APP_VERSION', '1.0.0'),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +69,7 @@ return [
         // Configuración de notificaciones
         'notifications' => [
             // Email para recibir notificaciones cuando termine el mantenimiento
-            'admin_email' => $_ENV['MAIL_FROM_ADDRESS'],
+            'admin_email' => env('MAIL_FROM_ADDRESS'),
 
             // Enviar email cuando se active/desactive mantenimiento
             'notify_on_toggle' => true,
@@ -101,7 +87,7 @@ return [
             'show_progress' => true,
 
             // Contacto de soporte
-            'support_email' => $_ENV['MAIL_FROM_ADDRESS'],
+            'support_email' => env('MAIL_FROM_ADDRESS'),
             'support_phone' => '+1 (555) 123-4567',
         ],
     ],
@@ -114,7 +100,7 @@ return [
 
     'session' => [
         // Duración de la sesión en minutos (0 = hasta cerrar navegador)
-        'lifetime' => (int)($_ENV['SESSION_LIFETIME']),
+        'lifetime' => (int)(env('SESSION_LIFETIME')),
 
         // Nombre de la cookie de sesión
         'cookie_name' => 'authmanager_session',
@@ -126,7 +112,7 @@ return [
         'cookie_path' => '/',
 
         // Cookie solo por HTTPS
-        'cookie_secure' => filter_var($_ENV['FORCE_HTTPS'] ?? false, FILTER_VALIDATE_BOOLEAN),
+        'cookie_secure' => filter_var(env('FORCE_HTTPS', false), FILTER_VALIDATE_BOOLEAN),
 
         // Cookie solo accesible por HTTP (no JavaScript)
         'cookie_httponly' => true,
@@ -138,7 +124,7 @@ return [
         'regenerate_id' => true,
 
         // Validar IP de sesión
-        'validate_ip' => filter_var($_ENV['VALIDATE_SESSION_IP'] ?? true, FILTER_VALIDATE_BOOLEAN),
+        'validate_ip' => filter_var(env('VALIDATE_SESSION_IP', true), FILTER_VALIDATE_BOOLEAN),
     ],
 
     /*
@@ -149,16 +135,16 @@ return [
 
     'security' => [
         // Forzar HTTPS
-        'force_https' => filter_var($_ENV['FORCE_HTTPS'] ?? false, FILTER_VALIDATE_BOOLEAN),
+        'force_https' => filter_var(env('FORCE_HTTPS', false), FILTER_VALIDATE_BOOLEAN),
 
         // Protección CSRF
-        'csrf_protection' => filter_var($_ENV['CSRF_PROTECTION'] ?? true, FILTER_VALIDATE_BOOLEAN),
+        'csrf_protection' => filter_var(env('CSRF_PROTECTION', true), FILTER_VALIDATE_BOOLEAN),
 
         // Duración del token CSRF en minutos
-        'csrf_token_lifetime' => (int)($_ENV['CSRF_TOKEN_LIFETIME']),
+        'csrf_token_lifetime' => (int)(env('CSRF_TOKEN_LIFETIME')),
 
         // Headers de seguridad
-        'security_headers' => filter_var($_ENV['SECURITY_HEADERS'] ?? true, FILTER_VALIDATE_BOOLEAN),
+        'security_headers' => filter_var(env('SECURITY_HEADERS', true), FILTER_VALIDATE_BOOLEAN),
 
         // Lista de headers de seguridad a aplicar
         'headers' => [
@@ -167,7 +153,7 @@ return [
             'X-XSS-Protection' => '1; mode=block',
             'Referrer-Policy' => 'strict-origin-when-cross-origin',
             'security_headers' => false,
-            // 'Content-Security-Policy' => "default-src 'self'; script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net cdnjs.cloudflare.com; font-src 'self' fonts.gstatic.com cdnjs.cloudflare.com; img-src 'self' data:;"
+            // 'Content-Security-Policy' => ...
         ],
     ],
 
@@ -179,16 +165,16 @@ return [
 
     'files' => [
         // Directorio de uploads
-        'upload_path' => $_ENV['UPLOAD_PATH'],
+        'upload_path' => env('UPLOAD_PATH'),
 
         // Tamaño máximo de archivo en MB
-        'max_file_size' => (int)($_ENV['MAX_FILE_SIZE']),
+        'max_file_size' => (int)(env('MAX_FILE_SIZE')),
 
         // Tipos de archivo permitidos para avatares
-        'avatar_allowed_types' => explode(',', $_ENV['AVATAR_ALLOWED_TYPES']),
+        'avatar_allowed_types' => explode(',', env('AVATAR_ALLOWED_TYPES')),
 
         // Tamaño máximo para avatares en MB
-        'avatar_max_size' => (int)($_ENV['AVATAR_MAX_SIZE']),
+        'avatar_max_size' => (int)(env('AVATAR_MAX_SIZE')),
     ],
 
     /*
@@ -199,16 +185,16 @@ return [
 
     'api' => [
         // Activar API REST
-        'enabled' => filter_var($_ENV['ENABLE_API'] ?? false, FILTER_VALIDATE_BOOLEAN),
+        'enabled' => filter_var(env('ENABLE_API', false), FILTER_VALIDATE_BOOLEAN),
 
         // Prefijo de rutas de API
-        'prefix' => $_ENV['API_PREFIX'] ?? 'api',
+        'prefix' => env('API_PREFIX', 'api'),
 
         // Versión de API por defecto
-        'version' => $_ENV['API_VERSION'] ?? 'v1',
+        'version' => env('API_VERSION', 'v1'),
 
         // Rate limiting para API (requests per minute)
-        'rate_limit' => (int)($_ENV['API_RATE_LIMIT'] ?? 60),
+        'rate_limit' => (int)(env('API_RATE_LIMIT', 60)),
     ],
 
     /*
@@ -219,10 +205,10 @@ return [
 
     'cache' => [
         // Driver de caché (file, redis, memcached, array)
-        'driver' => $_ENV['CACHE_DRIVER'] ?? 'file',
+        'driver' => env('CACHE_DRIVER', 'file'),
 
         // Tiempo de caché por defecto en minutos
-        'default_ttl' => (int)($_ENV['CACHE_DEFAULT_TTL'] ?? 60),
+        'default_ttl' => (int)(env('CACHE_DEFAULT_TTL', 60)),
 
         // Directorio para caché de archivos
         'file_path' => __DIR__ . '/../../storage/cache',
@@ -236,13 +222,13 @@ return [
 
     'development' => [
         // Mostrar errores de PHP
-        'display_errors' => filter_var($_ENV['DISPLAY_ERRORS'] ?? true, FILTER_VALIDATE_BOOLEAN),
+        'display_errors' => filter_var(env('DISPLAY_ERRORS', true), FILTER_VALIDATE_BOOLEAN),
 
         // Reportar todos los errores
-        'report_all_errors' => filter_var($_ENV['REPORT_ALL_ERRORS'] ?? true, FILTER_VALIDATE_BOOLEAN),
+        'report_all_errors' => filter_var(env('REPORT_ALL_ERRORS', true), FILTER_VALIDATE_BOOLEAN),
 
         // Activar profiling de consultas
-        'enable_query_log' => filter_var($_ENV['ENABLE_QUERY_LOG'] ?? true, FILTER_VALIDATE_BOOLEAN),
+        'enable_query_log' => filter_var(env('ENABLE_QUERY_LOG', true), FILTER_VALIDATE_BOOLEAN),
     ],
 
     /*

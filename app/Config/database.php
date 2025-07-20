@@ -2,7 +2,7 @@
 
 /**
  * Configuración de Base de Datos
- * AuthManager Base
+ * Frameworkito
  */
 
 return [

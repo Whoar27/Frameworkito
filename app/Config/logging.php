@@ -2,7 +2,7 @@
 
 /**
  * Configuración del Sistema de Logs
- * AuthManager Base - Sistema Dual (Archivos + Base de Datos)
+ * Frameworkito - Sistema Dual (Archivos + Base de Datos)
  */
 
 return [
@@ -264,9 +264,9 @@ return [
             'enabled' => filter_var($_ENV['LOG_EMAIL_ALERTS'] ?? false, FILTER_VALIDATE_BOOLEAN),
             'recipients' => explode(',', $_ENV['LOG_ALERT_EMAILS'] ?? ''),
             'subjects' => [
-                'critical' => '[CRÍTICO] Error en ' . ($_ENV['APP_NAME'] ?? 'AuthManager'),
-                'security' => '[SEGURIDAD] Alerta en ' . ($_ENV['APP_NAME'] ?? 'AuthManager'),
-                'error' => '[ERROR] Problema en ' . ($_ENV['APP_NAME'] ?? 'AuthManager'),
+                'critical' => '[CRÍTICO] Error en ' . ($_ENV['APP_NAME'] ?? 'Frameworkito'),
+                'security' => '[SEGURIDAD] Alerta en ' . ($_ENV['APP_NAME'] ?? 'Frameworkito'),
+                'error' => '[ERROR] Problema en ' . ($_ENV['APP_NAME'] ?? 'Frameworkito'),
             ],
         ],
 
