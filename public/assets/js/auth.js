@@ -1,5 +1,5 @@
 /**
- * AuthManager Base - JavaScript de Autenticación Unificado
+ * Frameworkito - JavaScript de Autenticación Unificado
  * Todas las funcionalidades de auth en un solo archivo
  * Version: 2.0.0
  */
@@ -9,7 +9,7 @@
 // ============================================================================
 
 // Namespace global para utilidades de autenticación
-window.AuthManager = {
+window.Frameworkito = {
     // CSRF token management
     getCsrfToken: function () {
         return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
@@ -221,7 +221,7 @@ window.AuthUtils = {
         try {
             // Agregar CSRF token si es POST/PUT/DELETE
             if (['POST', 'PUT', 'DELETE'].includes(options.method?.toUpperCase())) {
-                const csrfToken = AuthManager.getCsrfToken();
+                const csrfToken = Frameworkito.getCsrfToken();
 
                 if (options.body instanceof FormData) {
                     options.body.append('_token', csrfToken);
@@ -329,7 +329,7 @@ window.AuthForms = {
         }
 
         // Show loading state
-        AuthManager.showFormLoading('loginForm', 'loginBtn');
+        Frameworkito.showFormLoading('loginForm', 'loginBtn');
 
         // El formulario continuará con el envío normal
         return true;
@@ -449,7 +449,7 @@ window.AuthForms = {
         }
 
         // Show loading state
-        AuthManager.showFormLoading('registerForm', 'registerBtn');
+        Frameworkito.showFormLoading('registerForm', 'registerBtn');
         return true;
     },
 
@@ -496,11 +496,11 @@ window.AuthForms = {
         }
 
         // Show loading state
-        AuthManager.showFormLoading('forgotForm', 'forgotBtn');
+        Frameworkito.showFormLoading('forgotForm', 'forgotBtn');
 
         // Re-enable button after timeout in case of server error
         setTimeout(() => {
-            AuthManager.hideFormLoading('forgotForm', 'forgotBtn');
+            Frameworkito.hideFormLoading('forgotForm', 'forgotBtn');
         }, 10000);
 
         return true;
@@ -614,7 +614,7 @@ window.AuthForms = {
         }
 
         // Show loading state
-        AuthManager.showFormLoading('resetForm', 'resetBtn');
+        Frameworkito.showFormLoading('resetForm', 'resetBtn');
         return true;
     },
 
@@ -817,7 +817,7 @@ document.addEventListener('DOMContentLoaded', function () {
     AuthUtils.autoHideAlerts();
 
     // Auto-hide page loader
-    AuthManager.hidePageLoader();
+    Frameworkito.hidePageLoader();
 
     // Global toggle password visibility function
     window.togglePasswordVisibility = AuthUtils.togglePasswordVisibility;
@@ -830,7 +830,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const link = e.target.closest('a[href^="/"]');
         if (link && !link.hasAttribute('target') && !e.ctrlKey && !e.metaKey) {
             e.preventDefault();
-            AuthManager.redirectTo(link.href);
+            Frameworkito.redirectTo(link.href);
         }
     });
 });
@@ -841,7 +841,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('error', function (e) {
     console.error('Auth page error:', e.error);
-    AuthManager.hidePageLoader();
+    Frameworkito.hidePageLoader();
 
     // Hide any loading states
     const loadingButtons = document.querySelectorAll('.btn-loading:not(.d-none)');
@@ -850,7 +850,7 @@ window.addEventListener('error', function (e) {
         if (parentBtn && parentBtn.id) {
             const formId = parentBtn.closest('form')?.id;
             if (formId) {
-                AuthManager.hideFormLoading(formId, parentBtn.id);
+                Frameworkito.hideFormLoading(formId, parentBtn.id);
             }
         }
     });
@@ -1152,8 +1152,8 @@ window.InfoSlider = {
 // ACTUALIZACIÓN DEL NAMESPACE AUTHMANAGER
 // ============================================================================
 
-// Agregar slider a AuthManager
-window.AuthManager.slider = InfoSlider;
+// Agregar slider a Frameworkito
+window.Frameworkito.slider = InfoSlider;
 
 // ============================================================================
 // INICIALIZACIÓN ACTUALIZADA
@@ -1163,7 +1163,7 @@ window.AuthManager.slider = InfoSlider;
 document.addEventListener('DOMContentLoaded', function() {
     // Funciones existentes
     AuthUtils.autoHideAlerts();
-    AuthManager.hidePageLoader();
+    Frameworkito.hidePageLoader();
 
     // NUEVO: Inicializar slider de información
     InfoSlider.init();
@@ -1177,7 +1177,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const link = e.target.closest('a[href^="/"]');
         if (link && !link.hasAttribute('target') && !e.ctrlKey && !e.metaKey) {
             e.preventDefault();
-            AuthManager.redirectTo(link.href);
+            Frameworkito.redirectTo(link.href);
         }
     });
 });
@@ -1189,7 +1189,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Export for debugging (development only)
 if (typeof window !== 'undefined' && window.console) {
     window.AuthDebug = {
-        manager: AuthManager,
+        manager: Frameworkito,
         utils: AuthUtils,
         forms: AuthForms,
         slider: InfoSlider,

@@ -1,5 +1,5 @@
 /**
- * PANEL DE ADMINISTRACIÓN - AUTHMANAGER BASE
+ * PANEL DE ADMINISTRACIÓN - Frameworkito
  * JavaScript principal con funcionalidades completas
  * Manejo de sidebar, temas, navegación y componentes interactivos
  */
