@@ -14,7 +14,7 @@
                     </h1>
 
                     <p class="lead text-muted mb-4">
-                        <?= htmlspecialchars($meta_description ?? 'Encuentra respuestas rápidas a las preguntas más comunes sobre AuthManager Base.') ?>
+                        <?= htmlspecialchars($meta_description ?? 'Encuentra respuestas rápidas a las preguntas más comunes sobre Frameworkito.') ?>
                     </p>
 
                     <!-- Search Box -->
@@ -84,12 +84,12 @@
                         <div class="accordion-item faq-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#general1">
-                                    ¿Qué es AuthManager Base?
+                                    ¿Qué es Frameworkito?
                                 </button>
                             </h2>
                             <div id="general1" class="accordion-collapse collapse" data-bs-parent="#generalAccordion">
                                 <div class="accordion-body">
-                                    AuthManager Base es un sistema de autenticación reutilizable desarrollado en PHP vanilla que implementa el patrón MVC. Está diseñado para ser una base sólida que puedes usar en múltiples proyectos, ya sean sitios web corporativos o sistemas de gestión internos.
+                                    Frameworkito es un sistema de autenticación reutilizable desarrollado en PHP vanilla que implementa el patrón MVC. Está diseñado para ser una base sólida que puedes usar en múltiples proyectos, ya sean sitios web corporativos o sistemas de gestión internos.
                                 </div>
                             </div>
                         </div>
@@ -121,7 +121,7 @@
                             </h2>
                             <div id="general3" class="accordion-collapse collapse" data-bs-parent="#generalAccordion">
                                 <div class="accordion-body">
-                                    Sí, AuthManager Base está disponible bajo la licencia MIT, lo que significa que puedes usarlo, modificarlo y distribuirlo libremente, incluso en proyectos comerciales.
+                                    Sí, Frameworkito está disponible bajo la licencia MIT, lo que significa que puedes usarlo, modificarlo y distribuirlo libremente, incluso en proyectos comerciales.
                                 </div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
                         <div class="accordion-item faq-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#install1">
-                                    ¿Cómo instalo AuthManager Base?
+                                    ¿Cómo instalo Frameworkito?
                                 </button>
                             </h2>
                             <div id="install1" class="accordion-collapse collapse" data-bs-parent="#instalacionAccordion">

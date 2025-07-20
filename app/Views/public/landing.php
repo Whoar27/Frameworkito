@@ -84,7 +84,7 @@ $features = [
         <div class="row align-items-center min-vh-100 py-5">
             <div class="col-lg-6 fade-in">
                 <div class="hero-content">
-                    <div class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-4">
+                    <div class="badge bg-info bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-4">
                         <i class="fas fa-rocket me-2"></i>
                         Sistema de Autenticación Profesional
                     </div>
@@ -96,7 +96,7 @@ $features = [
                     </h1>
 
                     <p class="lead text-muted mb-5">
-                        AuthManager Base te proporciona todo lo que necesitas para implementar
+                        Frameworkito te proporciona todo lo que necesitas para implementar
                         un sistema de autenticación robusto y escalable en tus proyectos PHP.
                         Desde login seguro hasta gestión avanzada de roles y permisos.
                     </p>
@@ -297,7 +297,7 @@ $features = [
             <div class="col-lg-8">
                 <h2 class="h1 fw-bold mb-3">¿Listo para Comenzar?</h2>
                 <p class="lead mb-4 opacity-90">
-                    Únete a cientos de desarrolladores que ya confían en AuthManager Base para sus proyectos.
+                    Únete a cientos de desarrolladores que ya confían en Frameworkito para sus proyectos.
                 </p>
             </div>
             <div class="col-lg-4 text-lg-end">
@@ -321,7 +321,7 @@ $features = [
             <div class="col-lg-8 mx-auto text-center mb-5 fade-in">
                 <h2 class="display-5 fw-bold mb-4">Lo que Dicen los Desarrolladores</h2>
                 <p class="lead text-muted">
-                    Testimonios reales de desarrolladores que han usado AuthManager Base en sus proyectos.
+                    Testimonios reales de desarrolladores que han usado Frameworkito en sus proyectos.
                 </p>
             </div>
         </div>

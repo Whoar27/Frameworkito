@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Panel de Administración - AuthManager Base">
-    <meta name="author" content="AuthManager Team">
-    <title><?= $title ?? 'Panel de Administración' ?> - AuthManager</title>
+    <meta name="description" content="Panel de Administración - Frameworkito">
+    <meta name="author" content="Frameworkito Team">
+    <title><?= $title ?? 'Panel de Administración' ?> - Frameworkito</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?= asset('assets/img/favicon.ico') ?>">
@@ -55,7 +55,7 @@
         <div class="sidebar-header">
             <div class="logo-container">
                 <img src="<?= asset('assets/img/logo.svg') ?>" alt="Logo" class="logo-img">
-                <span class="logo-text">AuthManager</span>
+                <span class="logo-text">Frameworkito</span>
             </div>
             <button class="sidebar-toggle desktop-toggle" id="sidebarToggle">
                 <i class="fas fa-chevron-left"></i>

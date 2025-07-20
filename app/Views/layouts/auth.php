@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <!-- SEO Meta Tags -->
-    <title><?= e($page_title ?? config('app.name', 'AuthManager Base')) ?></title>
+    <title><?= e($page_title ?? config('app.name', 'Frameworkito')) ?></title>
     <meta name="description" content="<?= e($meta_description ?? 'Sistema de autenticación profesional') ?>">
     <meta name="keywords" content="login, registro, autenticación, seguridad">
-    <meta name="author" content="<?= e(config('app.name', 'AuthManager Base')) ?>">
+    <meta name="author" content="<?= e(config('app.name', 'Frameworkito')) ?>">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="<?= e($page_title ?? config('app.name', 'AuthManager Base')) ?>">
+    <meta property="og:title" content="<?= e($page_title ?? config('app.name', 'Frameworkito')) ?>">
     <meta property="og:description" content="<?= e($meta_description ?? 'Sistema de autenticación profesional') ?>">
     <meta property="og:type" content="website">
     <meta property="og:url" content="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ?>">
@@ -83,7 +83,7 @@
             const pageConfig = {
                 redirectTo: '<?= e($redirect_to ?? '/home') ?>',
                 debug: <?= config('app.debug', false) ? 'true' : 'false' ?>,
-                csrfToken: AuthManager.getCsrfToken()
+                csrfToken: Frameworkito.getCsrfToken()
             };
 
             // Inicializar según la página
@@ -109,7 +109,7 @@
 
             // Log de debug si está habilitado
             if (pageConfig.debug) {
-                console.log('🔐 AuthManager Base - Layout auth.php');
+                console.log('🔐 Frameworkito - Layout auth.php');
                 console.log('📱 Página actual:', currentPath);
                 console.log('🎯 Configuración:', pageConfig);
             }
@@ -119,7 +119,7 @@
     <!-- Environment-specific scripts -->
     <?php if (config('app.debug', false)): ?>
         <script>
-            console.log('🔐 AuthManager Base - Modo Desarrollo');
+            console.log('🔐 Frameworkito - Modo Desarrollo');
             console.log('📱 Layout: auth.php');
             console.log('🎯 Página:', '<?= e($page_title ?? "Sin título") ?>');
             console.log('🌐 URL:', window.location.href);

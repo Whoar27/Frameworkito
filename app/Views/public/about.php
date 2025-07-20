@@ -10,7 +10,7 @@
                     </div>
 
                     <h1 class="display-4 fw-bold mb-4">
-                        <?= htmlspecialchars($page_title ?? 'Acerca de AuthManager Base') ?>
+                        <?= htmlspecialchars($page_title ?? 'Acerca de Frameworkito') ?>
                     </h1>
 
                     <p class="lead text-muted mb-4">

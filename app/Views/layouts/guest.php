@@ -5,11 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?= $title ?? 'Inicio' ?> | AuthManager Base</title>
+    <title><?= $title ?? 'Inicio' ?> | Frameworkito</title>
     <meta name="description" content="<?= $description ?? 'Sistema de autenticación profesional con PHP - Seguro, rápido y fácil de implementar' ?>">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?= asset('assets/img/favicon.ico') ?>">
+
+    <!-- PREVENT FLASH OF WRONG THEME -->
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem('theme');
+                if (!theme || theme === 'system') {
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                    }
+                } else if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) {}
+        })();
+    </script>
 
     <!-- CSS NotiWhoar -->
     <link href="<?= asset('assets/vendors/notiwhoar/1.0.5/css/styles.css') ?>" rel="stylesheet">
@@ -20,7 +38,7 @@
     <link href="<?= asset('assets/vendors/bootstrap/5.3.7/css/bootstrap.min.css') ?>" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="<?= asset('assets/css/guest-v1.0.5.css') ?>" rel="stylesheet">
+    <link href="<?= asset('assets/css/guest.css'); ?>" rel="stylesheet">
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,15 +56,42 @@
                 <a class="navbar-brand" href="<?= $_ENV['APP_URL'] ?? '' ?>/">
                     <div class="brand-container">
                         <i class="fas fa-shield-alt brand-icon"></i>
-                        <span class="brand-text">AuthManager</span>
-                        <span class="brand-subtitle">Base</span>
+                        <span class="brand-text">Frameworkito</span>
+                        <span class="brand-subtitle">Beta</span>
                     </div>
                 </a>
 
-                <!-- Mobile Toggle Button -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <!-- Mobile Actions (Theme Toggle + Hamburger) -->
+                <div class="d-flex align-items-center gap-2 d-lg-none">
+                    <!-- Theme Toggle for Mobile -->
+                    <div class="dropdown">
+                        <button class="btn btn-ghost" type="button" data-bs-toggle="dropdown" title="Cambiar tema">
+                            <i class="fas fa-adjust fs-5"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end theme-dropdown">
+                            <li>
+                                <button class="dropdown-item theme-option" data-choice="light">
+                                    <i class="fas fa-sun me-2"></i>Claro
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item theme-option" data-choice="dark">
+                                    <i class="fas fa-moon me-2"></i>Oscuro
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item theme-option" data-choice="system">
+                                    <i class="fas fa-adjust me-2"></i>Automático
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Mobile Toggle Button -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
 
                 <!-- Navigation Links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -71,28 +116,34 @@
                                 FAQ
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($currentPage ?? '') === 'doc' ? 'active' : '' ?>" href="<?= $_ENV['APP_URL'] ?? '' ?>/doc">
+                                Documentación
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Actions -->
                     <div class="navbar-actions d-flex align-items-center gap-3">
-                        <!-- Theme Toggle -->
-                        <div class="dropdown">
+
+                        <!-- Theme Toggle for Desktop -->
+                        <div class="dropdown d-none d-lg-block">
                             <button class="btn btn-ghost" type="button" data-bs-toggle="dropdown" title="Cambiar tema">
                                 <i class="fas fa-adjust"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                            <ul class="dropdown-menu dropdown-menu-end theme-dropdown">
                                 <li>
-                                    <button class="dropdown-item theme-option" data-theme="light">
+                                    <button class="dropdown-item theme-option" data-choice="light">
                                         <i class="fas fa-sun me-2"></i>Claro
                                     </button>
                                 </li>
                                 <li>
-                                    <button class="dropdown-item theme-option" data-theme="dark">
+                                    <button class="dropdown-item theme-option" data-choice="dark">
                                         <i class="fas fa-moon me-2"></i>Oscuro
                                     </button>
                                 </li>
                                 <li>
-                                    <button class="dropdown-item theme-option" data-theme="system">
+                                    <button class="dropdown-item theme-option" data-choice="system">
                                         <i class="fas fa-adjust me-2"></i>Automático
                                     </button>
                                 </li>
@@ -129,12 +180,12 @@
                             </div>
                         <?php else: ?>
                             <!-- User is not logged in -->
-                            <a href="<?= $_ENV['APP_URL'] ?? '' ?>/login" class="btn btn-outline-primary">
+                            <a href="<?= $_ENV['APP_URL'] ?? '' ?>/login" class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-sign-in-alt me-1"></i>
                                 <span class="d-none d-sm-inline">Iniciar Sesión</span>
                                 <span class="d-sm-none">Login</span>
                             </a>
-                            <a href="<?= $_ENV['APP_URL'] ?? '' ?>/register" class="btn btn-primary">
+                            <a href="<?= $_ENV['APP_URL'] ?? '' ?>/register" class="btn btn-sm btn-primary">
                                 <i class="fas fa-user-plus me-1"></i>
                                 <span class="d-none d-sm-inline">Registrarse</span>
                                 <span class="d-sm-none">Registro</span>
@@ -147,19 +198,19 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="content">
         <?= $content ?? '' ?>
     </main>
 
     <!-- Footer -->
-    <footer class="main-footer">
+    <footer class="footer my-8">
         <div class="container">
-            <div class="row">
+            <div class="row my-4">
                 <!-- Company Info -->
-                <div class="col-lg-4 mb-4">
+                <div class="col-lg-4">
                     <div class="footer-brand mb-3">
                         <i class="fas fa-shield-alt text-primary me-2"></i>
-                        <span class="h5 mb-0">AuthManager Base</span>
+                        <span class="h5 mb-0">Frameworkito</span>
                     </div>
                     <p class="text-muted mb-3">
                         Sistema de autenticación profesional para proyectos PHP.
@@ -182,7 +233,7 @@
                 </div>
 
                 <!-- Quick Links -->
-                <div class="col-lg-2 col-md-3 col-6 mb-4">
+                <div class="col-lg-2 col-md-3 col-6">
                     <h6 class="footer-title">Producto</h6>
                     <ul class="footer-links">
                         <li><a href="<?= $_ENV['APP_URL'] ?? '' ?>/features">Características</a></li>
@@ -193,7 +244,7 @@
                 </div>
 
                 <!-- Resources -->
-                <div class="col-lg-2 col-md-3 col-6 mb-4">
+                <div class="col-lg-2 col-md-3 col-6">
                     <h6 class="footer-title">Recursos</h6>
                     <ul class="footer-links">
                         <li><a href="<?= $_ENV['APP_URL'] ?? '' ?>/docs">Documentación</a></li>
@@ -204,7 +255,7 @@
                 </div>
 
                 <!-- Company -->
-                <div class="col-lg-2 col-md-3 col-6 mb-4">
+                <div class="col-lg-2 col-md-3 col-6">
                     <h6 class="footer-title">Empresa</h6>
                     <ul class="footer-links">
                         <li><a href="<?= $_ENV['APP_URL'] ?? '' ?>/about">Acerca de</a></li>
@@ -215,7 +266,7 @@
                 </div>
 
                 <!-- Legal -->
-                <div class="col-lg-2 col-md-3 col-6 mb-4">
+                <div class="col-lg-2 col-md-3 col-6">
                     <h6 class="footer-title">Legal</h6>
                     <ul class="footer-links">
                         <li><a href="<?= $_ENV['APP_URL'] ?? '' ?>/privacy">Privacidad</a></li>
@@ -233,7 +284,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <p class="copyright mb-0">
-                            © <?= date('Y') ?> AuthManager Base. Todos los derechos reservados.
+                            © <?= date('Y') ?> Frameworkito. Todos los derechos reservados.
                         </p>
                     </div>
                     <div class="col-md-6 text-md-end">
@@ -298,7 +349,7 @@
     <script src="<?= asset('assets/vendors/bootstrap/5.3.7/js/bootstrap.bundle.min.js') ?>"></script>
 
     <!-- Custom JavaScript -->
-    <script src="<?= asset('assets/js/guest-v1.0.5.js') ?>"></script>
+    <script src="<?= asset('assets/js/guest.js'); ?>"></script>
 
     <!-- Page-specific scripts -->
     <?= $scripts ?? '' ?>
