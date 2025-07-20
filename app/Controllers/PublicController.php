@@ -2,7 +2,7 @@
 
 /**
  * PublicController - Controlador Público
- * AuthManager Base
+ * Frameworkito
  * 
  * Maneja todas las rutas públicas accesibles sin autenticación
  */
@@ -10,6 +10,10 @@
 namespace App\Controllers;
 
 class PublicController extends BaseController {
+
+    //============================================================================
+    // PAGINAS PÚBLICAS - WEBSITE
+    //============================================================================
 
     /**
      * Landing Page - Página principal pública
@@ -23,7 +27,7 @@ class PublicController extends BaseController {
 
             // Datos para la vista
             $data = [
-                'page_title' => 'Bienvenido - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
+                'page_title' => 'Bienvenido - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
                 'meta_description' => 'Sistema de autenticación seguro y profesional. Gestiona usuarios, roles y permisos de manera eficiente.',
                 'features' => [
                     [
@@ -78,7 +82,8 @@ class PublicController extends BaseController {
                         'label' => 'Security Monitoring',
                         'icon' => 'fas fa-eye'
                     ]
-                ]
+                ],
+                'currentPage' => 'home'
             ];
 
             // Si APP_TYPE es 'system', redirigir a login
@@ -108,9 +113,11 @@ class PublicController extends BaseController {
         try {
             $this->log('info', 'Acceso a página About');
 
+            // Datos para la vista (opcionalmente podrías cargar desde un archivo o base de datos)
             $data = [
-                'page_title' => 'Acerca de - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
-                'meta_description' => 'Conoce más sobre nuestro sistema de autenticación y las tecnologías que utilizamos.'
+                'page_title' => 'Acerca de - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
+                'meta_description' => 'Conoce más sobre Frameworkito y las tecnologías que utilizamos.',
+                'currentPage' => 'about'
             ];
 
             $this->view('public/about', $data, 'guest');
@@ -127,8 +134,9 @@ class PublicController extends BaseController {
             $this->log('info', 'Acceso a página Contact');
 
             $data = [
-                'page_title' => 'Contacto - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
-                'meta_description' => 'Ponte en contacto con nosotros para soporte técnico o consultas comerciales.'
+                'page_title' => 'Contacto - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
+                'meta_description' => 'Ponte en contacto con nosotros para soporte técnico o consultas comerciales.',
+                'currentPage' => 'contact'
             ];
 
             $this->view('public/contact', $data, 'guest');
@@ -187,8 +195,9 @@ class PublicController extends BaseController {
             $this->log('info', 'Acceso a página FAQ');
 
             $data = [
-                'page_title' => 'FAQ - Preguntas Frecuentes - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
-                'meta_description' => 'Encuentra respuestas rápidas a las preguntas más comunes sobre AuthManager Base, instalación, configuración y uso.'
+                'page_title' => 'FAQ - Preguntas Frecuentes - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
+                'meta_description' => 'Encuentra respuestas rápidas a las preguntas más comunes sobre Frameworkito, instalación, configuración y uso.',
+                'currentPage' => 'faq'
             ];
 
             $this->view('public/faq', $data, 'guest');
@@ -203,7 +212,7 @@ class PublicController extends BaseController {
     public function privacy(): void {
         try {
             $data = [
-                'page_title' => 'Política de Privacidad - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
+                'page_title' => 'Política de Privacidad - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
                 'meta_description' => 'Conoce cómo protegemos tu información personal y qué datos recopilamos.'
             ];
 
@@ -219,7 +228,7 @@ class PublicController extends BaseController {
     public function terms(): void {
         try {
             $data = [
-                'page_title' => 'Términos de Servicio - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
+                'page_title' => 'Términos de Servicio - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
                 'meta_description' => 'Lee nuestros términos y condiciones de uso del servicio.'
             ];
 
@@ -257,14 +266,214 @@ class PublicController extends BaseController {
         }
     }
 
+    //============================================================================
+    // PÁGINAS PÚBLICAS - DOCUMENTACIÓN
+    //============================================================================
+
     /**
-     * Página README
+     * Página index de Documentación
      */
-    public function readme(): void {
+    public function documentation(): void {
         try {
-            $this->view('public/readme', [], 'guest');
+            $docRoot = __DIR__ . '/../../documentation';
+            $baseUrl = rtrim($_ENV['APP_URL'], '/') . '/doc';
+
+            $docs = $this->scanDocumentation($docRoot, $baseUrl);
+
+            $data = [
+                'page_title' => 'Documentación - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
+                'meta_description' => 'Guía completa de uso y configuración de Frameworkito.',
+                'docs' => $docs,
+                'currentPage' => 'doc'
+            ];
+
+            $this->view('public/doc/index', $data, 'guest');
         } catch (\Exception $e) {
-            $this->handleError($e, 'Error al cargar la página README');
+            $this->handleError($e, 'Error al cargar la página de documentación');
+        }
+    }
+
+    // Escanea recursivamente la carpeta /documentation/ para construir el índice
+    private function scanDocumentation(string $path, string $baseUrl, string $relative = ''): array {
+        $result = [];
+        $otherFiles = [];
+
+        $items = scandir($path);
+        foreach ($items as $item) {
+            if ($item === '.' || $item === '..') continue;
+
+            $fullPath = $path . '/' . $item;
+
+            $rawName = pathinfo($item, PATHINFO_FILENAME);
+            $normalized = $this->normalizeSlug($rawName); // para URL
+            $displayName = $this->cleanDisplayName($rawName); // para mostrar
+
+            if (is_dir($fullPath)) {
+                // Subcarpeta
+                $result[$displayName] = $this->scanDocumentation(
+                    $fullPath,
+                    $baseUrl,
+                    $relative . $normalized . '/'
+                );
+            } elseif (is_file($fullPath) && pathinfo($item, PATHINFO_EXTENSION) === 'md') {
+                // Archivo suelto .md
+                $urlPath = $baseUrl . '/' . $relative . $normalized;
+
+                $otherFiles[] = [
+                    'name' => $displayName,
+                    'url' => $urlPath
+                ];
+            }
+        }
+
+        // Si hay archivos sueltos, ver si hay además subcarpetas
+        if (!empty($otherFiles)) {
+            if (!empty($result)) {
+                // Hay otras claves además de archivos: agrupar bajo 'Otros'
+                $result['Otros'] = $otherFiles;
+            } else {
+                // Solo hay archivos sueltos: los dejamos directo como contenido principal
+                $result = $otherFiles;
+            }
+        }
+
+        return $result;
+    }
+
+    // Convierte nombres con espacios, guiones bajos o símbolos en slugs tipo kebab-case
+    private function normalizeSlug(string $name): string {
+        $name = strtolower($name);
+        $name = iconv('UTF-8', 'ASCII//TRANSLIT', $name); // quita acentos
+        $name = preg_replace('/[^a-z0-9]+/i', '-', $name); // reemplaza no alfanuméricos por -
+        return trim($name, '-');
+    }
+
+    // Devuelve el nombre legible con capitalización y sin símbolos
+    private function cleanDisplayName(string $name): string {
+        $name = str_replace(['_', '-', '.'], ' ', $name); // reemplaza guiones por espacio
+        $name = preg_replace('/[^A-Za-z0-9 ]/', '', $name); // quita símbolos extraños
+        return ucwords(strtolower(trim($name)));
+    }
+
+    /**
+     * Renderiza cualquier guía Markdown de /documentation/
+     */
+    public function docViewer(): void {
+        try {
+            // 1. Obtener la URL actual y extraer el slug
+            $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+            $slug = ltrim(str_replace('/doc/', '', parse_url($requestUri, PHP_URL_PATH)), '/');
+
+            if (empty($slug)) {
+                $this->log('warning', '404 en documentación - slug vacío en docViewer', [
+                    'request_uri' => $_SERVER['REQUEST_URI'] ?? '',
+                    'ip' => get_client_ip(),
+                    'referer' => $_SERVER['HTTP_REFERER'] ?? null
+                ]);
+
+                $this->show404([
+                    'title' => 'Ruta inválida',
+                    'message' => 'No se proporcionó una guía o ruta válida para mostrar.'
+                ]);
+            }
+
+            // 2. Convertir el slug limpio a nombres de archivo reales
+            $pathParts = explode('/', $slug);
+            $docRoot = __DIR__ . '/../../documentation';
+
+            // Reconstruir la ruta original basada en los slugs
+            $resolvedParts = [];
+            $currentDir = $docRoot;
+
+            foreach ($pathParts as $slugPart) {
+                $found = false;
+
+                foreach (scandir($currentDir) as $entry) {
+                    if ($entry === '.' || $entry === '..') continue;
+
+                    $entryName = pathinfo($entry, PATHINFO_FILENAME);
+                    $normalized = $this->normalizeSlug($entryName);
+
+                    if ($normalized === $slugPart) {
+                        $resolvedParts[] = $entryName;
+                        $currentDir .= '/' . $entry;
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if (!$found) {
+                    $this->log('warning', '404 en documentación - segmento no encontrado', [
+                        'slug_segment' => $slugPart,
+                        'full_slug' => $slug,
+                        'request_uri' => $_SERVER['REQUEST_URI'] ?? '',
+                        'ip' => get_client_ip(),
+                        'referer' => $_SERVER['HTTP_REFERER'] ?? null
+                    ]);
+
+                    $this->show404([
+                        'title' => 'Segmento inválido',
+                        'message' => 'No se encontró la sección <strong>"' . htmlspecialchars($slugPart) . '"</strong> en la documentación.'
+                    ]);
+                }
+            }
+
+            // 3. Buscar el archivo .md
+            $fullPath = $docRoot . '/' . implode('/', $resolvedParts) . '.md';
+
+            if (!file_exists($fullPath)) {
+                $this->log('warning', '404 en documentación - archivo no encontrado', [
+                    'resolved_path' => $fullPath,
+                    'slug' => $slug,
+                    'request_uri' => $_SERVER['REQUEST_URI'] ?? '',
+                    'ip' => get_client_ip(),
+                    'referer' => $_SERVER['HTTP_REFERER'] ?? null
+                ]);
+
+                $this->show404([
+                    'title' => 'Guía no encontrada',
+                    'message' => 'El archivo de documentación solicitado no existe: <code>' . basename($fullPath) . '</code>.'
+                ]);
+            }
+
+            // 4. Renderizar el Markdown con ParsedownExtra
+            $parsedownPath = __DIR__ . '/../Helpers/Parsedown.php';
+            $parsedownExtraPath = __DIR__ . '/../Helpers/ParsedownExtra.php';
+            
+            // Cargar Parsedown base primero
+            if (!class_exists('Parsedown')) {
+                if (file_exists($parsedownPath)) {
+                    require_once $parsedownPath;
+                } else {
+                    throw new \Exception('No se encontró Parsedown.');
+                }
+            }
+            
+            // Cargar ParsedownExtra
+            if (!class_exists('ParsedownExtra')) {
+                if (file_exists($parsedownExtraPath)) {
+                    require_once $parsedownExtraPath;
+                } else {
+                    throw new \Exception('No se encontró ParsedownExtra.');
+                }
+            }
+
+            $markdown = file_get_contents($fullPath);
+            $parsedown = new \ParsedownExtra();
+            $parsedown->setSafeMode(true); // Habilitar modo seguro
+            $html = $parsedown->text($markdown);
+
+            // 5. Preparar datos para la vista
+            $lastSegment = end($resolvedParts);
+            $data = [
+                'page_title' => $this->cleanDisplayName($lastSegment),
+                'content' => $html,
+                'currentPage' => 'doc',
+            ];
+
+            $this->view('public/doc/view', $data, 'guest');
+        } catch (\Exception $e) {
+            $this->handleError($e, 'Error al renderizar guía de documentación');
         }
     }
 
