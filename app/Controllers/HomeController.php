@@ -2,7 +2,7 @@
 
 /**
  * HomeController - Controlador de Páginas de Inicio
- * AuthManager Base
+ * Frameworkito
  */
 
 namespace App\Controllers;
@@ -17,7 +17,7 @@ class HomeController extends BaseController {
 
             $data = [
                 'title' => 'Inicio',
-                'welcome_message' => '¡Bienvenido a AuthManager Base!',
+                'welcome_message' => '¡Bienvenido a Frameworkito!',
                 'system_status' => $this->getSystemStatus(),
                 'features' => $this->getFeatures()
             ];

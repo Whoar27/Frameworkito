@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Rutas Web - AuthManager Base
+ * Rutas Web - Frameworkito
  * 
  * Define todas las rutas web de la aplicación
  * Syntax: $method($uri, $handler)
@@ -21,8 +21,23 @@ $post('/contact', 'PublicController@contactSubmit');
 $get('/faq', 'PublicController@faq');
 $get('/privacy', 'PublicController@privacy');
 $get('/terms', 'PublicController@terms');
-$get('/readme', 'PublicController@readme');
 
+// ====================================================================
+// RUTAS PÚBLICAS - DOCUMENTACIÓN
+// ====================================================================
+// Página índice de documentación
+$get('/doc', 'PublicController@documentation');
+
+// Ruta catch-all para cualquier cosa que empiece con /doc/ (antes del cierre del archivo)
+if (strpos($_SERVER['REQUEST_URI'], '/doc/') === 0) {
+    $controller = new \App\Controllers\PublicController();
+    $controller->docViewer(); // Esto se ejecuta directo sin pasar por el router
+    exit;
+}
+
+// ====================================================================
+// RUTAS PÚBLICAS - API
+// ====================================================================
 // API Status público
 $get('/status', 'PublicController@status');
 

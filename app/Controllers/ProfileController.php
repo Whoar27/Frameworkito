@@ -2,7 +2,7 @@
 
 /**
  * ProfileController - Controlador de Páginas de Perfil
- * AuthManager Base
+ * Frameworkito
  */
 
 namespace App\Controllers;

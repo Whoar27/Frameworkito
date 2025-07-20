@@ -2,7 +2,7 @@
 
 /**
  * AuthController - Controlador de Autenticación REAL
- * AuthManager Base
+ * Frameworkito
  * 
  * Maneja todas las funciones de autenticación usando Delight-im/Auth
  */
@@ -32,10 +32,10 @@ class AuthController extends BaseController {
             $this->log('info', 'Acceso a página de login');
 
             $data = [
-                'page_title' => 'Iniciar Sesión - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
-                'meta_description' => 'Accede a tu cuenta en AuthManager Base',
+                'page_title' => 'Iniciar Sesión - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
+                'meta_description' => 'Accede a tu cuenta en Frameworkito',
                 'redirect_to' => $this->input('redirect', '/home'),
-                'app_name' => $this->config['app']['name'] ?? 'AuthManager Base',
+                'app_name' => $this->config['app']['name'] ?? 'Frameworkito',
                 'app_debug' => $this->config['app']['debug'] ?? false
             ];
 
@@ -136,9 +136,9 @@ class AuthController extends BaseController {
             $this->log('info', 'Acceso a página de registro');
 
             $data = [
-                'page_title' => 'Crear Cuenta - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
-                'meta_description' => 'Crea tu cuenta en AuthManager Base',
-                'app_name' => $this->config['app']['name'] ?? 'AuthManager Base',
+                'page_title' => 'Crear Cuenta - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
+                'meta_description' => 'Crea tu cuenta en Frameworkito',
+                'app_name' => $this->config['app']['name'] ?? 'Frameworkito',
                 'app_debug' => $this->config['app']['debug'] ?? false,
                 'password_requirements' => [
                     'min_length' => config('auth.password_min_length', 8),
@@ -267,9 +267,9 @@ class AuthController extends BaseController {
             $this->log('info', 'Acceso a página de recuperación de contraseña');
 
             $data = [
-                'page_title' => 'Recuperar Contraseña - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
+                'page_title' => 'Recuperar Contraseña - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
                 'meta_description' => 'Recupera el acceso a tu cuenta',
-                'app_name' => $this->config['app']['name'] ?? 'AuthManager Base'
+                'app_name' => $this->config['app']['name'] ?? 'Frameworkito'
             ];
 
             $this->view('auth/forgot-password', $data, 'auth');
@@ -365,9 +365,9 @@ class AuthController extends BaseController {
             $this->log('info', 'Acceso a página de confirmación de correo');
 
             $data = [
-                'page_title' => 'Confirmación de Correo - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
+                'page_title' => 'Confirmación de Correo - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
                 'meta_description' => 'Confirma tu correo electrónico',
-                'app_name' => $this->config['app']['name'] ?? 'AuthManager Base'
+                'app_name' => $this->config['app']['name'] ?? 'Frameworkito'
             ];
 
             $this->view('auth/confirm-mail', $data, 'auth');
@@ -419,11 +419,11 @@ class AuthController extends BaseController {
             $this->log('info', 'Acceso a página de reset de contraseña', ['selector' => $selector, 'token' => $token]);
 
             $data = [
-                'page_title' => 'Nueva Contraseña - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
+                'page_title' => 'Nueva Contraseña - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
                 'meta_description' => 'Establece tu nueva contraseña',
                 'selector' => $selector,
                 'token' => $token,
-                'app_name' => $this->config['app']['name'] ?? 'AuthManager Base'
+                'app_name' => $this->config['app']['name'] ?? 'Frameworkito'
             ];
 
             $this->view('auth/reset-password', $data, 'auth');
@@ -480,7 +480,7 @@ class AuthController extends BaseController {
             if ($result['success']) {
                 $this->log('info', 'Reset de contraseña exitoso', ['selector' => $selector]);
 
-                $companyName = $this->config['app']['name'] ?? 'AuthManager Base';
+                $companyName = $this->config['app']['name'] ?? 'Frameworkito';
 
                 // Enviar email de confirmación de cambio de contraseña
                 if ($userEmail) {
@@ -528,11 +528,11 @@ class AuthController extends BaseController {
             $this->log('info', 'Acceso a página de verificación de email', ['selector' => $selector]);
 
             $data = [
-                'page_title' => 'Verificar Email - ' . ($this->config['app']['name'] ?? 'AuthManager Base'),
+                'page_title' => 'Verificar Email - ' . ($this->config['app']['name'] ?? 'Frameworkito'),
                 'meta_description' => 'Verifica tu dirección de email',
                 'selector' => $selector,
                 'token' => $token,
-                'app_name' => $this->config['app']['name'] ?? 'AuthManager Base'
+                'app_name' => $this->config['app']['name'] ?? 'Frameworkito'
             ];
 
             $this->view('auth/verify-email', $data, 'auth');
