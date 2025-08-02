@@ -1,0 +1,1 @@
+Estamos creando "AuthManager Base" - un sistema de autenticación reutilizable que funciona como un "mini-framework" personal para proyectos PHP. El objetivo es tener una base sólida que se pueda copiar y usar en cada nuevo proyecto, evitando reescribir el sistema de login desde cero cada vez.

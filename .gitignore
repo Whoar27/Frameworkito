@@ -22,7 +22,7 @@ public/uploads/
 /node_modules/
 
 # Documentación
-/documentation
+# /documentation
 
 # Archivos temporales y de pruebas
 *.tmp

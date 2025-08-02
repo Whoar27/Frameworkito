@@ -72,6 +72,8 @@ function manualAutoloader($className) {
         'App\Controllers\PublicController' => APP_PATH . '/Controllers/PublicController.php',
         'App\Controllers\AuthController' => APP_PATH . '/Controllers/AuthController.php',
         'App\Controllers\UserController' => APP_PATH . '/Controllers/UserController.php',
+        'App\Controllers\ComponentController' => APP_PATH . '/Controllers/ComponentController.php',
+        'App\Controllers\ProfileController' => APP_PATH . '/Controllers/ProfileController.php',
         'App\Helpers\Auth' => APP_PATH . '/Helpers/Auth.php',
         'App\Helpers\Session' => APP_PATH . '/Helpers/Session.php',
         'App\Helpers\FileLogger' => APP_PATH . '/Helpers/FileLogger.php',

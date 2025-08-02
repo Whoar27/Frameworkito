@@ -12,7 +12,8 @@
     <link rel="icon" type="image/x-icon" href="<?= asset('assets/img/favicon.ico') ?>">
 
     <!-- CSS NotiWhoar -->
-    <link href="<?= asset('assets/vendors/notiwhoar/1.0.5/css/styles.css') ?>" rel="stylesheet">
+    <link href="<?= asset('assets/vendors/notiwhoar/toast/notifications.min.css') ?>" rel="stylesheet">
+    <link href="<?= asset('assets/vendors/notiwhoar/toast/demo/demo.css') ?>" rel="stylesheet">
     <script>
         (function() {
             try {
@@ -53,7 +54,7 @@
     <aside class="sidebar" id="sidebar">
         <!-- Logo -->
         <div class="sidebar-header">
-            <div class="logo-container">
+            <div class="logo-container" onclick="window.location.href = '/home'" style="cursor: pointer;">
                 <img src="<?= asset('assets/img/logo.svg') ?>" alt="Logo" class="logo-img">
                 <span class="logo-text">Frameworkito</span>
             </div>
@@ -67,7 +68,7 @@
             <div class="nav-wrapper">
                 <!-- Dashboard -->
                 <div class="nav-item">
-                    <a href="/dashboard" class="nav-link active">
+                    <a href="/home" class="nav-link active">
                         <i class="fas fa-tachometer-alt nav-icon"></i>
                         <span class="nav-text">Dashboard</span>
                     </a>
@@ -224,6 +225,44 @@
                         <span class="nav-text">Reportes</span>
                     </a>
                 </div>
+
+                <!-- Agregar separador -->
+                <div class="nav-item separator"></div>
+
+                <!-- Menú para componentes -->
+                <div class="nav-item has-submenu">
+                    <a href="#" class="nav-link submenu-toggle">
+                        <i class="fas fa-th-large nav-icon"></i>
+                        <span class="nav-text">Componentes</span>
+                        <i class="fas fa-chevron-right nav-arrow"></i>
+                    </a>
+                    <div class="submenu">
+                        <div class="submenu-item">
+                            <a href="/components/toast" class="submenu-link">
+                                <i class="fas fa-bell submenu-icon"></i>
+                                <span class="submenu-text">Toast</span>
+                            </a>
+                        </div>
+                        <div class="submenu-item">
+                            <a href="/components/buttons" class="submenu-link">
+                                <i class="fas fa-square submenu-icon"></i>
+                                <span class="submenu-text">Botones</span>
+                            </a>
+                        </div>
+                        <div class="submenu-item">
+                            <a href="/components/cards" class="submenu-link">
+                                <i class="fas fa-credit-card submenu-icon"></i>
+                                <span class="submenu-text">Tarjetas</span>
+                            </a>
+                        </div>
+                        <div class="submenu-item">
+                            <a href="/components/modals" class="submenu-link">
+                                <i class="fas fa-window-restore submenu-icon"></i>
+                                <span class="submenu-text">Modales</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
 
@@ -370,19 +409,26 @@
         <!-- Page Content -->
         <div class="page-content">
             <div class="content-wrapper">
-                <?= $content ?? '' ?>
+                <?= $content ?? 'Vista sin contenido' ?>
             </div>
         </div>
     </main>
 
     <!-- Bootstrap 5 JS -->
     <script src="<?= asset('assets/vendors/bootstrap/5.3.7/js/bootstrap.bundle.min.js') ?>"></script>
+    
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="<?= asset('assets/vendors/prism/prism.css') ?>" rel="stylesheet">
+    <link href="<?= asset('assets/css/prism-custom.css') ?>" rel="stylesheet">
+    <script src="<?= asset('assets/vendors/prism/prism.js') ?>"></script>
 
     <!-- JavaScript de la aplicación -->
     <script src="<?= asset('assets/js/app-v1.0.5.js') ?>"></script>
 
     <!-- JS NotiWhoar -->
-    <script src="<?= asset('assets/vendors/notiwhoar/1.0.5/js/main.js') ?>"></script>
+    <script src="<?= asset('assets/vendors/notiwhoar/toast/notifications.min.js') ?>"></script>
+    <script src="<?= asset('assets/vendors/notiwhoar/toast/demo/demo.js') ?>"></script>
+    <script src="<?= asset('assets/vendors/notiwhoar/toast/demo/examples.js') ?>"></script>
 
     <!-- Variables PHP para JavaScript -->
     <script>

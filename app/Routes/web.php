@@ -89,6 +89,9 @@ $get('/home', 'HomeController@index');
 // Profile
 $get('/profile', 'ProfileController@index');
 
+// Componentes del tamplate
+$get('/components/toast', 'ComponentController@toast');
+
 // ====================================================================
 // RUTAS DE ADMINISTRACIÓN (temporalmente sin middleware)
 // ====================================================================
